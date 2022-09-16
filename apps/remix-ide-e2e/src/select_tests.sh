@@ -3,7 +3,7 @@
 # Bash Menu Script Example
 
 PS3='Select a browser: '
-BROWSERS=( "chrome" "chrome headless" "firefox" "exit" )
+BROWSERS=( "chrome" "chrome headless" "firefox" "firefox headless" "exit" )
 select opt in "${BROWSERS[@]}"
 do
     case $opt in
@@ -20,6 +20,11 @@ do
         "firefox")
             echo "Firefox selected"
             BROWSER="firefoxDesktop"
+            break
+            ;;
+        "firefox headless")
+            echo "Firefox headless selected"
+            BROWSER="firefox"
             break
             ;;
         "exit")

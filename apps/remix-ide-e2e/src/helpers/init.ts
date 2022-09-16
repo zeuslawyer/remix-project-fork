@@ -24,8 +24,7 @@ export default function (browser: NightwatchBrowser, callback: VoidFunction, url
       .pause(6000)
       .perform(done())
     })
-    .maximizeWindow()
-    .fullscreenWindow(() => {
+    .perform(() => {
       if (preloadPlugins) {
         initModules(browser, () => {
           browser.pause(2000).clickLaunchIcon('solidity')
