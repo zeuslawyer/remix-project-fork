@@ -297,7 +297,10 @@ export function UniversalDappUI(props: UdappProps) {
             <label>
               <b><FormattedMessage id="udapp.balance" />:</b> {instanceBalance} ETH
             </label>
-            {props.exEnvironment && props.exEnvironment.startsWith('injected') && <i className="fas fa-edit btn btn-sm p-0" onClick={() => {props.editInstance(props.instance)}}></i>}
+            <CustomTooltip placement="top" tooltipClasses="text-nowrap" tooltipId="udapp_udappSolScanTooltip" tooltipText={<FormattedMessage id="udapp.tooltipTextSolScan" />}>
+              <i className="fas fa-qrcode btn btn-sm p-0"></i>
+            </CustomTooltip> 
+            {props.exEnvironment === 'injected' && <i className="fas fa-edit btn btn-sm p-0" onClick={() => {props.editInstance(props.instance)}}></i>}
           </div>
           { props.isPinnedContract && props.instance.pinnedAt ? (
             <div className="d-flex" data-id="instanceContractPinnedAt">
