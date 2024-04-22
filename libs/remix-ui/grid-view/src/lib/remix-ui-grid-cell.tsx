@@ -54,7 +54,7 @@ export const RemixUIGridCell = (props: RemixUIGridCellProps) => {
           className={`${pinned ? 'fa-duotone' : 'fa-light'}` + ` fa-map-pin text-info border-0 mb-0 remixui_grid_cell_pin`}
           onClick={() => {
             setPinned(!pinned)
-            props.pinStateCallback()
+            props.pinStateCallback(!pinned)
           }}
         ></button>}
         { props.tagList && <div className='d-flex flex-column align-items-begin remixui_grid_cell_tags'>
