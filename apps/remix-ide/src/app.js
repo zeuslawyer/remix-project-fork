@@ -56,6 +56,8 @@ import { compilerLoaderPlugin, compilerLoaderPluginDesktop } from './app/plugins
 import {OpenAIGpt} from './app/plugins/openaigpt'
 import {SolCoder} from './app/plugins/solcoderAI'
 
+import {TemplatesSelection} from './app/plugins/templates-selection'
+
 const isElectron = require('is-electron')
 
 const remixLib = require('@remix-project/remix-lib')
@@ -301,6 +303,8 @@ class AppComponent {
 
     const permissionHandler = new PermissionHandlerPlugin()
 
+    const templateSelection = new TemplatesSelection()
+
     
     this.engine.register([
       permissionHandler,
@@ -351,6 +355,7 @@ class AppComponent {
       templates,
       openaigpt,
       solcoder,
+      templateSelection,
     ])
 
     //---- fs plugin
