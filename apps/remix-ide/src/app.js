@@ -56,7 +56,7 @@ import { compilerLoaderPlugin, compilerLoaderPluginDesktop } from './app/plugins
 import {OpenAIGpt} from './app/plugins/openaigpt'
 import {SolCoder} from './app/plugins/solcoderAI'
 
-import {TemplatesSelection} from './app/plugins/templates-selection'
+import { TemplatesSelectionPlugin } from './app/plugins/templates-selection/templates-selection-plugin'
 
 const isElectron = require('is-electron')
 
@@ -303,7 +303,7 @@ class AppComponent {
 
     const permissionHandler = new PermissionHandlerPlugin()
 
-    const templateSelection = new TemplatesSelection()
+    const templateSelection = new TemplatesSelectionPlugin()
 
     
     this.engine.register([
