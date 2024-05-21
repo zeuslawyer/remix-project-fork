@@ -70,6 +70,7 @@ let requiredModules = [ // services + layout views + system views
   'compilationDetails',
   'vyperCompilationDetails',
   'contractflattener',
+  'statusBar',
   'solidity-script',
   'openaigpt',
   'solcoder',
@@ -104,7 +105,7 @@ const isVM = (name) => {
 }
 
 export function isNative(name) {
-  
+
   // nativePlugin allows to bypass the permission request
   const nativePlugins = [
     'vyper',
@@ -118,6 +119,7 @@ export function isNative(name) {
     'solhint',
     'solidityUnitTesting',
     'layout',
+    'statusBar',
     'notification',
     'hardhat-provider',
     'ganache-provider',
