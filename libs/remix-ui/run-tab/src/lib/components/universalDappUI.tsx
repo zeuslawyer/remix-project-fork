@@ -6,6 +6,7 @@ import { FuncABI } from '@remix-project/core-plugin'
 import { CopyToClipboard } from '@remix-ui/clipboard'
 import * as remixLib from '@remix-project/remix-lib'
 import * as ethJSUtil from '@ethereumjs/util'
+import { AppModal } from '@remix-ui/app'
 import { ContractGUI } from './contractGUI'
 import { TreeView, TreeViewItem } from '@remix-ui/tree-view'
 import { BN } from 'bn.js'
@@ -217,6 +218,20 @@ export function UniversalDappUI(props: UdappProps) {
     setCalldataValue(value)
   }
 
+  const askPermissionToScan = async () => {
+
+    const modal: AppModal = {
+      id: 'SolidityScanPermissionHandler',
+      title: <FormattedMessage id="udapp.solScan.modalTitle" />,
+      message: <FormattedMessage id="udapp.solScan.modalMessage" />,
+      okLabel: <FormattedMessage id="udapp.solScan.modalOkLabel" />,
+      cancelLabel: <FormattedMessage id="udapp.solScan.modalCancelLabel" />
+    }
+
+    const result = await props.plugin.call('notification', 'modal', modal)
+    console.log('askPermissionToScan----> result----->', result)
+  }
+
   const label = (key: string | number, value: string) => {
     return (
       <div className="d-flex mt-2 flex-row label_item">
@@ -297,8 +312,8 @@ export function UniversalDappUI(props: UdappProps) {
             <label>
               <b><FormattedMessage id="udapp.balance" />:</b> {instanceBalance} ETH
             </label>
-            <CustomTooltip placement="top" tooltipClasses="text-nowrap" tooltipId="udapp_udappSolScanTooltip" tooltipText={<FormattedMessage id="udapp.tooltipTextSolScan" />}>
-              <i className="fas fa-qrcode btn btn-sm p-0"></i>
+            <CustomTooltip placement="top" tooltipClasses="text-nowrap" tooltipId="udapp_udappSolScanTooltip" tooltipText={<FormattedMessage id="udapp.solScan.iconTooltip" />}>
+              <i className="fas fa-qrcode btn btn-sm p-0" onClick={askPermissionToScan}></i>
             </CustomTooltip> 
             {props.exEnvironment === 'injected' && <i className="fas fa-edit btn btn-sm p-0" onClick={() => {props.editInstance(props.instance)}}></i>}
           </div>
