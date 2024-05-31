@@ -237,22 +237,6 @@ export function Workspace() {
     )
   }
 
-  const addGithubAction = () => {
-    global.dispatchCreateSolidityGithubAction()
-  }
-
-  const addTsSolTestGithubAction = () => {
-    global.dispatchCreateTsSolGithubAction()
-  }
-
-  const addSlitherGithubAction = () => {
-    global.dispatchCreateSlitherGithubAction()
-  }
-
-  const addHelperScripts = (script: string) => {
-    global.dispatchCreateHelperScripts(script)
-  }
-
   const downloadWorkspaces = async () => {
     try {
       await global.dispatchHandleDownloadFiles()
@@ -757,10 +741,6 @@ export function Workspace() {
                             downloadWorkspaces={downloadWorkspaces}
                             restoreBackup={restoreBackup}
                             hideIconsMenu={hideIconsMenu}
-                            addGithubAction={addGithubAction}
-                            addSlitherGithubAction={addSlitherGithubAction}
-                            addHelperScripts={addHelperScripts}
-                            addTsSolTestGithubAction={addTsSolTestGithubAction}
                             showIconsMenu={showIconsMenu}
                             hideWorkspaceOptions={currentWorkspace === LOCALHOST}
                             hideLocalhostOptions={currentWorkspace === NO_WORKSPACE}
