@@ -11,19 +11,37 @@ export type CliOptions = {
 
 export class Server {
   provider
+  private server: any;
+  private initialized: boolean = false;
 
   constructor (options?: ProviderOptions) {
     this.provider = new Provider(options)
-    this.provider.init().then(() => {
+  }
+
+  // provider must be initialized and awaited before the Server instance can be used.
+   async initProvider() {
+    try {
+      await this.provider.init()
+      this.initialized = true
       log('Provider initiated')
       log('Test accounts:')
       log(Object.keys(this.provider.Accounts.accounts))
-    }).catch((error) => {
+    } catch (error) {
       log(error)
-    })
+    }
+    return this
   }
 
+
   async start (cliOptions: CliOptions) {
+    if (!this.initialized) {
+      throw new Error('Provider must be initialized before starting the server')
+    }
+    if (this.server) {
+      console.log('Server already running on port', this.server.address().port)
+      return
+    }
+
     const expressWs = (await import('express-ws')).default
     const express = (await import('express')).default
     const app = express()
@@ -80,7 +98,9 @@ export class Server {
       })
     }
 
-    app.listen(cliOptions.port, cliOptions.ip, () => {
+
+    this.server = app.listen(cliOptions.port, cliOptions.ip, () => {
+      console.log("ZUBIN: from the remix-simulator package ✅ server fired up in app.listen callback...\n")
       if (!cliOptions.rpc) {
         log('Remix Simulator listening on ws://' + cliOptions.ip + ':' + cliOptions.port)
         log('http json-rpc is deprecated and disabled by default. To enable it use --rpc')
@@ -88,6 +108,20 @@ export class Server {
         log('Remix Simulator listening on http://' + cliOptions.ip + ':' + cliOptions.port)
       }
     })
+  }
+
+  stop() {
+    if (this.server) {
+      this.server.close(() => {
+        log('Server stopped')
+      })
+    } else {
+      log('No server to stop')
+    }
+  }
+
+  getAccounts(){
+    return Object.keys(this.provider.Accounts.accounts)
   }
 }
 
